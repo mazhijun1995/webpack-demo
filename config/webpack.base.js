@@ -5,24 +5,28 @@ const webpack = require('webpack');
 
 module.exports = {
     // 默认production，打包文件压缩，开发时：development,不被压缩
-    mode: 'development',
+    // ugligyjsWebpackPlugin webpack3
+    // webpack4 production
     // 定位错误
     // devtool: 'eval-cheap-source-map',
     // 入口文件
     entry: {
         index:'./src/index.js',
+        // jquery:'jquery'
     },
-    devServer:{
-      static: './dist',
-      hot: true
-      },
+    // 公共代码提取打包
+    optimization:{
+        splitChunks:{
+            chunks:"all"
+        }
+    },
     // 输出
     output:{
         // 自定义打包文件名
         // 占位符
         filename: '[name].[hash:5].js',
         // 写绝对路径
-        path:path.resolve(__dirname, 'dist'),
+        path:path.resolve(__dirname, '../dist'),
         publicPath:'/'
     },
     module:{
@@ -102,7 +106,10 @@ module.exports = {
             template: './src/index.html'
         }),
         new CleanWebpackPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        // new webpack.ProvidePlugin({
+        //     $:'jquery',
+        //     jQuery:'jquery'
+        // })
     ]
 }
 

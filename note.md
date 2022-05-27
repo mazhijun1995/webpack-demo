@@ -89,4 +89,58 @@ polyfill
 
 
 --------------------------------------------
-treeSharking   摇树优化      console.log()   无用的代码    依赖ES6模块语法
+treeSharking   摇树优化      console.log()   无用的代码    依赖ES6模块语法   
+
+lodash-es   fn
+
+-------------------------------
+development  production区分   打包环境区分
+
+
+理下思路
+
+开发环境
+    devServer
+    sourceMap
+    接口代理,proxy
+    ...
+生产环境
+    treeSharking
+    代码压缩
+    提供公共代码
+共同点
+    同样的入口
+    部分相同的代码处理
+
+方案
+    webpack.prod.js  生产环境
+    webpack.dev.js   开发环境
+    webpack.base.js  开发环境与生产环境公用的代码
+    借助一个工具  webpack-merge
+
+
+-------------------------------
+打包优化
+
+1.入口配置：entry多入口   webpack.ProvidPlugin()
+2.抽取公共代码：splitchunks
+3.动态加载：按需加载，懒加载
+
+-------------------------------
+
+css文件代码分割
+单独打包:
+mini-css-extract-plugin
+压缩css:
+css-minimizer-webpack-plugin
+
+配置css代码分割压缩css代码，要注意影响到js代码压缩，需要手动配置js压缩 terser-webpack-plugin
+
+
+代码包分析工具
+代码包大小可视化工具
+webpack-bundle-analyzer
+
+
+获取环境参数
+yargs
